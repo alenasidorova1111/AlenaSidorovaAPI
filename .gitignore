@@ -1,0 +1,12 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+
+# IntelliJ
+out/
+
+# Maven
+target
+*.iml
+
+.idea
