@@ -1,1 +1,839 @@
-{"info":{"_postman_id":"322f4857-ff9c-4285-b3e1-09a625663d89","name":"Trello tests","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json"},"item":[{"name":"Board CRUD","item":[{"name":"Create a board","event":[{"listen":"test","script":{"id":"1181a979-ef11-46fa-9bd0-8e3a98a460fe","exec":["pm.test(\"Status code is 200\", function () {\r","    pm.response.to.have.status(200);\r","});\r","pm.test(\"Body matches string\", function () {\r","    pm.expect(pm.response.text()).to.include(\"This is a test board\");\r","});\r","\r","var jsonData = JSON.parse(responseBody);\r","postman.setEnvironmentVariable(\"boardID\", jsonData.id);"],"type":"text/javascript"}}],"id":"edd1ca8d-3078-4680-a08f-c1c0c594987c","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"POST","header":[],"url":{"raw":"{{host}}/{{boards}}?key={{apiKey}}&token={{apiToken}}&name=PostmanTestBoard&desc=This is a test board","host":["{{host}}"],"path":["{{boards}}"],"query":[{"key":"key","value":"{{apiKey}}"},{"key":"token","value":"{{apiToken}}"},{"key":"name","value":"PostmanTestBoard"},{"key":"desc","value":"This is a test board","description":"Decription of board"}]}},"response":[]},{"name":"Get members of a board","event":[{"listen":"test","script":{"id":"9d9a93ef-d4fb-467d-9aec-39ea42c80c05","exec":["pm.test(\"Status code is 200\", function () {\r","    pm.response.to.have.status(200);\r","});\r","pm.test(\"Body matches string\", function () {\r","    pm.expect(pm.response.text()).to.include(\"username\");\r","});\r","\r","var jsonData = JSON.parse(responseBody);\r","postman.setEnvironmentVariable(\"username\", jsonData[0].id);"],"type":"text/javascript"}}],"id":"1a4eee39-7a9a-4ba1-903e-04a915891c07","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"GET","header":[],"url":{"raw":"{{host}}/{{boards}}{{boardID}}/members?key={{apiKey}}&token={{apiToken}}","host":["{{host}}"],"path":["{{boards}}{{boardID}}","members"],"query":[{"key":"key","value":"{{apiKey}}"},{"key":"token","value":"{{apiToken}}"}]}},"response":[]},{"name":"Update a Board","event":[{"listen":"test","script":{"id":"ec34d119-4e27-4567-8396-f09973157d53","exec":["pm.test(\"Your test name\", function () {\r","    var jsonData = pm.response.json();\r","    pm.expect(jsonData.name).to.eql(\"This is a new board name\");\r","});"],"type":"text/javascript"}}],"id":"18d18a4c-1f14-478d-a8d5-c493010c933d","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"PUT","header":[],"url":{"raw":"{{host}}/{{boards}}{{boardID}}?key={{apiKey}}&token={{apiToken}}&name=This is a new board name","host":["{{host}}"],"path":["{{boards}}{{boardID}}"],"query":[{"key":"key","value":"{{apiKey}}","type":"text"},{"key":"token","value":"{{apiToken}}","type":"text"},{"key":"name","value":"This is a new board name","type":"text"}]}},"response":[]},{"name":"Delete a board","event":[{"listen":"test","script":{"id":"17f48864-96c1-4b7d-9398-aba935e1b094","exec":["pm.test(\"Board is equal to null\", function () {\r","    var jsonData = pm.response.json();\r","    pm.expect(jsonData._value).to.eql(null);\r","});\r","\r","pm.environment.set(\"boardID\", \"\");"],"type":"text/javascript"}},{"listen":"prerequest","script":{"id":"5b984ccd-620c-4724-ba19-55ed1535e5f4","exec":[""],"type":"text/javascript"}}],"id":"d12ead2d-c738-4975-8a74-e75236af4a18","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"DELETE","header":[],"body":{"mode":"formdata","formdata":[{"key":"id","value":"6143292d5104fa27a4550a3d","type":"text","disabled":true}]},"url":{"raw":"{{host}}/{{boards}}{{boardID}}?key={{apiKey}}&token={{apiToken}}","host":["{{host}}"],"path":["{{boards}}{{boardID}}"],"query":[{"key":"key","value":"{{apiKey}}"},{"key":"token","value":"{{apiToken}}"}]}},"response":[]}],"id":"b8a05bcf-ecd7-4d9a-8bab-6c35df9d48aa"},{"name":"List CRUD","item":[{"name":"Create a board","event":[{"listen":"test","script":{"id":"c4e2095b-280d-4806-be7c-b23f667fd76a","exec":["pm.test(\"Status code is 200\", function () {\r","    pm.response.to.have.status(200);\r","});\r","pm.test(\"Body matches string\", function () {\r","    pm.expect(pm.response.text()).to.include(\"This is a test board\");\r","});\r","\r","var jsonData = JSON.parse(responseBody);\r","postman.setEnvironmentVariable(\"boardID\", jsonData.id);"],"type":"text/javascript"}}],"id":"d15aae4a-7ac7-44d7-bc0f-8f108d89262b","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"POST","header":[],"url":{"raw":"{{host}}/{{boards}}?key={{apiKey}}&token={{apiToken}}&name=PostmanTestBoard&desc=This is a test board","host":["{{host}}"],"path":["{{boards}}"],"query":[{"key":"key","value":"{{apiKey}}"},{"key":"token","value":"{{apiToken}}"},{"key":"name","value":"PostmanTestBoard"},{"key":"desc","value":"This is a test board","description":"Decription of board"}]}},"response":[]},{"name":"Create a List","event":[{"listen":"test","script":{"id":"28f9b04d-e19e-424d-8eff-d90c8176f979","exec":["pm.test(\"Status code is 200\", function () {\r","    pm.response.to.have.status(200);\r","});\r","\r","pm.test(\"Body matches string\", function () {\r","    pm.expect(pm.response.text()).to.include(\"ToDo\");\r","});\r","\r","var jsonData = JSON.parse(responseBody);\r","postman.setEnvironmentVariable(\"listID\", jsonData.id);"],"type":"text/javascript"}}],"id":"325c225d-3265-46df-9e25-03d4c689998e","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"POST","header":[],"url":{"raw":"{{host}}{{lists}}?key={{apiKey}}&token={{apiToken}}&name=ToDo&idBoard={{boardID}}","host":["{{host}}{{lists}}"],"query":[{"key":"key","value":"{{apiKey}}"},{"key":"token","value":"{{apiToken}}"},{"key":"name","value":"ToDo"},{"key":"idBoard","value":"{{boardID}}"}]}},"response":[]},{"name":"Get a list","event":[{"listen":"test","script":{"id":"150536e8-dc1c-4a60-9388-8ca4126fb1e2","exec":["pm.test(\"Status code is 200\", function () {\r","    pm.response.to.have.status(200);\r","});\r","pm.test(\"Body matches string\", function () {\r","    pm.expect(pm.response.text()).to.include(\"ToDo\");\r","});"],"type":"text/javascript"}}],"id":"a9559393-5025-4874-a663-7c1d6e32254f","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"GET","header":[],"url":{"raw":"{{host}}{{lists}}/{{listID}}?key={{apiKey}}&token={{apiToken}}","host":["{{host}}{{lists}}"],"path":["{{listID}}"],"query":[{"key":"key","value":"{{apiKey}}"},{"key":"token","value":"{{apiToken}}"}]}},"response":[]},{"name":"Update a List","event":[{"listen":"test","script":{"id":"b5f8cfaa-41a9-4359-885d-d22cbe63a179","exec":["pm.test(\"Your test name\", function () {\r","    var jsonData = pm.response.json();\r","    pm.expect(jsonData.name).to.eql(\"This is a new list name\");\r","});"],"type":"text/javascript"}}],"id":"c1f8f204-3d35-45be-9cc1-46d3e1b4bf17","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"PUT","header":[],"url":{"raw":"{{host}}{{lists}}/{{listID}}?key={{apiKey}}&token={{apiToken}}&name=This is a new list name","host":["{{host}}{{lists}}"],"path":["{{listID}}"],"query":[{"key":"key","value":"{{apiKey}}"},{"key":"token","value":"{{apiToken}}"},{"key":"name","value":"This is a new list name"}]}},"response":[]},{"name":"Archive a list","event":[{"listen":"test","script":{"id":"7317c84a-1ba4-449a-ade7-dc1f399dd5bf","exec":["pm.test(\"Status code is 200\", function () {\r","    pm.response.to.have.status(200);\r","});\r","\r","pm.test(\"Your test name\", function () {\r","    var jsonData = pm.response.json();\r","    pm.expect(jsonData.closed).to.eql(true);\r","});\r","\r","pm.environment.set(\"listID\", \"\");"],"type":"text/javascript"}}],"id":"dd2a83e5-b5d1-4ed7-8604-209d0c3351fa","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"PUT","header":[],"body":{"mode":"formdata","formdata":[{"key":"id","value":"6143292d5104fa27a4550a3d","type":"text","disabled":true}]},"url":{"raw":"{{host}}{{lists}}/{{listID}}/closed?key={{apiKey}}&token={{apiToken}}&value=true","host":["{{host}}{{lists}}"],"path":["{{listID}}","closed"],"query":[{"key":"key","value":"{{apiKey}}"},{"key":"token","value":"{{apiToken}}"},{"key":"value","value":"true"}]}},"response":[]},{"name":"Delete a board","event":[{"listen":"test","script":{"id":"4629dd79-d089-4fcc-a1de-e4fb38135287","exec":["pm.test(\"Board is equal to null\", function () {\r","    var jsonData = pm.response.json();\r","    pm.expect(jsonData._value).to.eql(null);\r","});\r","\r","pm.environment.set(\"boardID\", \"\");"],"type":"text/javascript"}}],"id":"23f6d19f-5a5d-402b-8e0e-d4183ca1ff3e","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"DELETE","header":[],"body":{"mode":"formdata","formdata":[{"key":"id","value":"6143292d5104fa27a4550a3d","type":"text","disabled":true}]},"url":{"raw":"{{host}}/{{boards}}{{boardID}}?key={{apiKey}}&token={{apiToken}}","host":["{{host}}"],"path":["{{boards}}{{boardID}}"],"query":[{"key":"key","value":"{{apiKey}}"},{"key":"token","value":"{{apiToken}}"}]}},"response":[]}],"id":"addcdc65-c0b6-429a-946a-a767eab1857f"},{"name":"Members CRUD","item":[{"name":"Create a board","event":[{"listen":"test","script":{"id":"74512d75-5669-41bd-ab52-5446edc83e04","exec":["pm.test(\"Status code is 200\", function () {\r","    pm.response.to.have.status(200);\r","});\r","pm.test(\"Body matches string\", function () {\r","    pm.expect(pm.response.text()).to.include(\"This is a test board\");\r","});\r","\r","var jsonData = JSON.parse(responseBody);\r","postman.setEnvironmentVariable(\"boardID\", jsonData.id);"],"type":"text/javascript"}}],"id":"5b74f674-740e-4d64-9d29-01d3cff431a8","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"POST","header":[],"url":{"raw":"{{host}}/{{boards}}?key={{apiKey}}&token={{apiToken}}&name=PostmanTestBoard&desc=This is a test board","host":["{{host}}"],"path":["{{boards}}"],"query":[{"key":"key","value":"{{apiKey}}"},{"key":"token","value":"{{apiToken}}"},{"key":"name","value":"PostmanTestBoard"},{"key":"desc","value":"This is a test board","description":"Decription of board"}]}},"response":[]},{"name":"Get a member","event":[{"listen":"test","script":{"id":"6f47d7a4-70cf-4e76-903a-737297038994","exec":["pm.test(\"Status code is 200\", function () {\r","    pm.response.to.have.status(200);\r","});\r","\r","pm.test(\"Your test name\", function () {\r","    var jsonData = pm.response.json();\r","    pm.expect(jsonData.activityBlocked).to.eql(false);\r","});"],"type":"text/javascript"}}],"id":"0380ef86-be05-4726-9c3b-2e1b735dca51","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"GET","header":[],"url":{"raw":"{{host}}{{members}}{{username}}","host":["{{host}}{{members}}{{username}}"]}},"response":[]},{"name":"Get Boards that Member belongs to","event":[{"listen":"test","script":{"id":"8ad8ab01-684e-488c-9540-db4100c914d4","exec":["pm.test(\"Status code is 200\", function () {\r","    pm.response.to.have.status(200);\r","});\r","\r","pm.test(\"Your test name\", function () {\r","    var jsonData = pm.response.json();\r","    pm.expect(jsonData[0].name).to.not.eql(null);\r","});"],"type":"text/javascript"}}],"id":"7567d4e9-8445-426f-b8e8-fb872e0c8cc3","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"GET","header":[{"key":"Content-Type","value":"application/json","type":"text","disabled":true},{"key":"Value","value":"Array<Board>","type":"text","disabled":true}],"url":{"raw":"{{host}}{{members}}{{username}}/boards?filter=all","host":["{{host}}{{members}}{{username}}"],"path":["boards"],"query":[{"key":"filter","value":"all"},{"key":"Value","value":"Array<Board>","type":"text","disabled":true}]}},"response":[]},{"name":"Update a Member","event":[{"listen":"test","script":{"id":"d39ba9f4-5ee2-404b-a2b4-e06c1fd67c61","exec":["pm.test(\"Status code is 200\", function () {\r","    pm.response.to.have.status(200);\r","});\r","\r","pm.test(\"Your test name\", function () {\r","    var jsonData = pm.response.json();\r","    pm.expect(jsonData[0].bio).to.not.eql(null);\r","});"],"type":"text/javascript"}},{"listen":"prerequest","script":{"id":"c4b850ce-1730-4017-8300-edde64ecc427","exec":[""],"type":"text/javascript"}}],"id":"1161e815-3dd5-41e6-abf3-059d9b6470ce","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"PUT","header":[{"key":"Content-Type","value":"application/json","type":"text","disabled":true},{"key":"Value","value":"Array<Board>","type":"text","disabled":true}],"body":{"mode":"formdata","formdata":[]},"url":{"raw":"{{host}}{{members}}{{username}}?key={{apiKey}}&token={{apiToken}}&bio=Thi is my bio","host":["{{host}}{{members}}{{username}}"],"query":[{"key":"key","value":"{{apiKey}}"},{"key":"token","value":"{{apiToken}}"},{"key":"bio","value":"Thi is my bio"}]}},"response":[]},{"name":"Delete a board","event":[{"listen":"test","script":{"id":"1ba96647-1d0b-4277-ba9a-818ad342e7dc","exec":["pm.test(\"Board is equal to null\", function () {\r","    var jsonData = pm.response.json();\r","    pm.expect(jsonData._value).to.eql(null);\r","});\r","\r","pm.environment.set(\"boardID\", \"\");\r","\r","pm.environment.set(\"username\", \"\");\r","\r",""],"type":"text/javascript"}}],"id":"241dea80-7862-4cc7-a525-b783a645b6bb","protocolProfileBehavior":{"disableBodyPruning":true},"request":{"method":"DELETE","header":[],"body":{"mode":"formdata","formdata":[{"key":"id","value":"6143292d5104fa27a4550a3d","type":"text","disabled":true}]},"url":{"raw":"{{host}}/{{boards}}{{boardID}}?key={{apiKey}}&token={{apiToken}}","host":["{{host}}"],"path":["{{boards}}{{boardID}}"],"query":[{"key":"key","value":"{{apiKey}}"},{"key":"token","value":"{{apiToken}}"}]}},"response":[]}],"id":"bc783924-303c-4069-92f6-a000462b9890"}],"event":[{"listen":"prerequest","script":{"id":"44b61316-8451-4d9e-91e5-178f0f6fc89a","type":"text/javascript","exec":[""]}},{"listen":"test","script":{"id":"e1658da6-4d99-4f7c-82bf-ad8dda14ddd4","type":"text/javascript","exec":[""]}}]}
+{
+	"info": {
+		"_postman_id": "322f4857-ff9c-4285-b3e1-09a625663d89",
+		"name": "Trello tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Board CRUD",
+			"item": [
+				{
+					"name": "Create a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'This is a test board' string in body\").to.include(\"This is a test board\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"boardID\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}?key={{apiKey}}&token={{apiToken}}&name=PostmanTestBoard&desc=This is a test board",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "name",
+									"value": "PostmanTestBoard"
+								},
+								{
+									"key": "desc",
+									"value": "This is a test board",
+									"description": "Decription of board"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get members of a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'username' in body\").to.include(\"username\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}{{boardID}}/members?key={{apiKey}}&token={{apiToken}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}{{boardID}}",
+								"members"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'name' in body\").to.include(\"name\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Name has changed\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(\"This is a new board name\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}{{boardID}}?key={{apiKey}}&token={{apiToken}}&name=This is a new board name",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}{{boardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "name",
+									"value": "This is a new board name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No '_value' in body\").to.include(\"_value\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Board is equal to null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData._value).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"boardID\", \"\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}{{boardID}}?key={{apiKey}}&token={{apiToken}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}{{boardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "List CRUD",
+			"item": [
+				{
+					"name": "Create a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'This is a test board' in body\").to.include(\"This is a test board\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"boardID\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}?key={{apiKey}}&token={{apiToken}}&name=PostmanTestBoard&desc=This is a test board",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "name",
+									"value": "PostmanTestBoard"
+								},
+								{
+									"key": "desc",
+									"value": "This is a test board",
+									"description": "Decription of board"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'ToDo' in body\").to.include(\"ToDo\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"listID\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{lists}}?key={{apiKey}}&token={{apiToken}}&name=ToDo&idBoard={{boardID}}",
+							"host": [
+								"{{host}}{{lists}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "name",
+									"value": "ToDo"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{boardID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'ToDo' in body\").to.include(\"ToDo\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{lists}}/{{listID}}?key={{apiKey}}&token={{apiToken}}",
+							"host": [
+								"{{host}}{{lists}}"
+							],
+							"path": [
+								"{{listID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'name' in body\").to.include(\"name\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"List name has changed\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name, \"No 'This is a new list name' in body\").to.eql(\"This is a new list name\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{lists}}/{{listID}}?key={{apiKey}}&token={{apiToken}}&name=This is a new list name",
+							"host": [
+								"{{host}}{{lists}}"
+							],
+							"path": [
+								"{{listID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "name",
+									"value": "This is a new list name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Archive a list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'closed' in body\").to.include(\"closed\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.closed).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"listID\", \"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{lists}}/{{listID}}/closed?key={{apiKey}}&token={{apiToken}}&value=true",
+							"host": [
+								"{{host}}{{lists}}"
+							],
+							"path": [
+								"{{listID}}",
+								"closed"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "value",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Board is equal to null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData._value).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"boardID\", \"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}{{boardID}}?key={{apiKey}}&token={{apiToken}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}{{boardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Members CRUD",
+			"item": [
+				{
+					"name": "Create a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'This is a test board' in body\").to.include(\"This is a test board\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"boardID\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}?key={{apiKey}}&token={{apiToken}}&name=PostmanTestBoard&desc=This is a test board",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "name",
+									"value": "PostmanTestBoard"
+								},
+								{
+									"key": "desc",
+									"value": "This is a test board",
+									"description": "Decription of board"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get members of a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'username' in body\").to.include(\"username\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"username\", jsonData[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}{{boardID}}/members?key={{apiKey}}&token={{apiToken}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}{{boardID}}",
+								"members"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a member",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'activityBlocked' in body\").to.include(\"activityBlocked\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Member is active\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.activityBlocked).to.eql(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{members}}{{username}}",
+							"host": [
+								"{{host}}{{members}}{{username}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Boards that Member belongs to",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No boards 'name' in body\").to.include(\"name\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{members}}{{username}}/boards?filter=all",
+							"host": [
+								"{{host}}{{members}}{{username}}"
+							],
+							"path": [
+								"boards"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "all"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Member",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'bio' in body\").to.include(\"bio\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test bio is not null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0].bio, \"Bio has null value\").to.not.eql(null);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{members}}{{username}}?key={{apiKey}}&token={{apiToken}}&bio=This is my bio",
+							"host": [
+								"{{host}}{{members}}{{username}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "bio",
+									"value": "This is my bio"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Board is equal to null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData._value).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"boardID\", \"\");\r",
+									"\r",
+									"pm.environment.set(\"username\", \"\");\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}{{boardID}}?key={{apiKey}}&token={{apiToken}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}{{boardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
