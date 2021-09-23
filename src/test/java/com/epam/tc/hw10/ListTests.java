@@ -1,50 +1,40 @@
 package com.epam.tc.hw10;
 
-import static org.testng.Assert.assertEquals;
-
+import com.epam.tc.hw10.Assertions.ListAssertions;
 import com.epam.tc.hw10.entities.List;
-import com.epam.tc.hw10.service.BoardService;
 import com.epam.tc.hw10.service.ListService;
 import java.util.HashMap;
 import java.util.Map;
 import org.testng.annotations.Test;
 
-public class ListTests {
+public class ListTests extends BaseTest{
 
-    List list;
-    BoardService boardService = new BoardService();
-    ListService listService = new ListService();
-    Map<String, String> params = new HashMap<>();
+    private List list;
+    private ListAssertions la = new ListAssertions();
+    private final ListService listService = new ListService();
+    private Map<String, String> listParams = new HashMap<>();
 
     @Test(description = "Create list and delete board test")
     public void createListDeleteBoardTest() {
-        params.put("name", "My new board");
-        String boardID = boardService.createBoard(params).getId();
+        listParams.put("name", List.NAME);
+        listParams.put("idBoard", board.getId());
+        list = listService.createList(listParams);
 
-        params.put("name", "ToDoList");
-        params.put("idBoard", boardID);
-        list = listService.createList(params);
-
-        assertEquals(list.getName(), "ToDoList");
-
-        boardService.deleteBoard(boardID);
+        la.verifyListName(list, List.NAME);
     }
 
     @Test(description = "Create, delete list and delete board test")
     public void createUpdateListDeleteBoardTest() {
-        params.put("name", "My new board");
-        String boardID = boardService.createBoard(params).getId();
+        String changedName = "ToDo test list changed";
+        listParams.put("name", List.NAME);
+        params.put("idBoard", board.getId());
 
-        params.put("name", "ToDoList");
-        params.put("idBoard", boardID);
-        list = listService.createList(params);
+        list = listService.createList(listParams);
         String listID = list.getId();
 
-        params.put("name", "ToDoListChanged");
-        list = listService.updateList(listID, params);
+        listParams.put("name", changedName);
+        list = listService.updateList(listID, listParams);
 
-        assertEquals(list.getName(), "ToDoListChanged");
-
-        boardService.deleteBoard(boardID);
+        la.verifyListName(list, changedName);
     }
 }

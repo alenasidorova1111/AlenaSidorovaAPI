@@ -6,6 +6,8 @@ import lombok.Data;
 
 @Data
 public class Board {
+    public static final String NAME = "My new test board";
+
     private String id;
     private String name;
     private String desc;

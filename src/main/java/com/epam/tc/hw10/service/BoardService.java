@@ -1,7 +1,5 @@
 package com.epam.tc.hw10.service;
 
-import static io.restassured.RestAssured.given;
-
 import com.epam.tc.hw10.entities.Board;
 import com.google.gson.GsonBuilder;
 import io.restassured.http.Method;
@@ -17,42 +15,18 @@ public class BoardService extends CommonService{
     }
 
     public Board createBoard(Map<String, String> params) {
-        Response rs = given()
-            //.basePath(BOARDS)
-            .spec(requestSpecification())
-            .queryParams(params)
-            .when().request(Method.POST, BOARDS)
-            .then().statusCode(200).extract().response();
-
-        return new GsonBuilder().excludeFieldsWithModifiers().create().fromJson(rs.getBody().asString(), Board.class);
+        return parseBoard(requestWithParams(Method.POST, BOARDS, params));
     }
 
     public Response deleteBoard(String boardID) {
-        Response rs = given()
-            .spec(requestSpecification())
-            .when().request(Method.DELETE, BOARDS + boardID)
-            .then().statusCode(200).extract().response();
-
-        return rs;
+        return requestWithNoParams(Method.DELETE, BOARDS + boardID);
     }
 
     public Board getBoard(String boardID) {
-        Response rs = given()
-            .spec(requestSpecification())
-            .when().request(Method.GET, BOARDS + boardID)
-            .then().statusCode(200).extract().response();
-
-        return new GsonBuilder().excludeFieldsWithModifiers().create().fromJson(rs.getBody().asString(), Board.class);
-
+        return parseBoard(requestWithNoParams(Method.GET, BOARDS + boardID));
     }
 
-    public Board updateBoard(String boardID, Map<String, String> params) {
-        Response rs = given()
-            .spec(requestSpecification())
-            .queryParams(params)
-            .when().request(Method.PUT, BOARDS + boardID)
-            .then().statusCode(200).extract().response();
-
-        return new GsonBuilder().excludeFieldsWithModifiers().create().fromJson(rs.getBody().asString(), Board.class);
+    public Board updateBoard(Map<String, String> params, String boardID) {
+        return parseBoard(requestWithParams(Method.PUT, BOARDS + boardID, params));
     }
 }
