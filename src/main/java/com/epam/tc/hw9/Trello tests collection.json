@@ -1,0 +1,839 @@
+{
+	"info": {
+		"_postman_id": "322f4857-ff9c-4285-b3e1-09a625663d89",
+		"name": "Trello tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Board CRUD",
+			"item": [
+				{
+					"name": "Create a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'This is a test board' string in body\").to.include(\"This is a test board\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"boardID\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}?key={{apiKey}}&token={{apiToken}}&name=PostmanTestBoard&desc=This is a test board",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "name",
+									"value": "PostmanTestBoard"
+								},
+								{
+									"key": "desc",
+									"value": "This is a test board",
+									"description": "Decription of board"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get members of a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'username' in body\").to.include(\"username\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}{{boardID}}/members?key={{apiKey}}&token={{apiToken}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}{{boardID}}",
+								"members"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'name' in body\").to.include(\"name\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Name has changed\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(\"This is a new board name\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}{{boardID}}?key={{apiKey}}&token={{apiToken}}&name=This is a new board name",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}{{boardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "name",
+									"value": "This is a new board name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No '_value' in body\").to.include(\"_value\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Board is equal to null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData._value).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"boardID\", \"\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}{{boardID}}?key={{apiKey}}&token={{apiToken}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}{{boardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "List CRUD",
+			"item": [
+				{
+					"name": "Create a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'This is a test board' in body\").to.include(\"This is a test board\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"boardID\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}?key={{apiKey}}&token={{apiToken}}&name=PostmanTestBoard&desc=This is a test board",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "name",
+									"value": "PostmanTestBoard"
+								},
+								{
+									"key": "desc",
+									"value": "This is a test board",
+									"description": "Decription of board"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'ToDo' in body\").to.include(\"ToDo\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"listID\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{lists}}?key={{apiKey}}&token={{apiToken}}&name=ToDo&idBoard={{boardID}}",
+							"host": [
+								"{{host}}{{lists}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "name",
+									"value": "ToDo"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{boardID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'ToDo' in body\").to.include(\"ToDo\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{lists}}/{{listID}}?key={{apiKey}}&token={{apiToken}}",
+							"host": [
+								"{{host}}{{lists}}"
+							],
+							"path": [
+								"{{listID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'name' in body\").to.include(\"name\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"List name has changed\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name, \"No 'This is a new list name' in body\").to.eql(\"This is a new list name\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{lists}}/{{listID}}?key={{apiKey}}&token={{apiToken}}&name=This is a new list name",
+							"host": [
+								"{{host}}{{lists}}"
+							],
+							"path": [
+								"{{listID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "name",
+									"value": "This is a new list name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Archive a list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'closed' in body\").to.include(\"closed\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.closed).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"listID\", \"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{lists}}/{{listID}}/closed?key={{apiKey}}&token={{apiToken}}&value=true",
+							"host": [
+								"{{host}}{{lists}}"
+							],
+							"path": [
+								"{{listID}}",
+								"closed"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "value",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Board is equal to null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData._value).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"boardID\", \"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}{{boardID}}?key={{apiKey}}&token={{apiToken}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}{{boardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Members CRUD",
+			"item": [
+				{
+					"name": "Create a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'This is a test board' in body\").to.include(\"This is a test board\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"boardID\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}?key={{apiKey}}&token={{apiToken}}&name=PostmanTestBoard&desc=This is a test board",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "name",
+									"value": "PostmanTestBoard"
+								},
+								{
+									"key": "desc",
+									"value": "This is a test board",
+									"description": "Decription of board"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get members of a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'username' in body\").to.include(\"username\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"username\", jsonData[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}{{boardID}}/members?key={{apiKey}}&token={{apiToken}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}{{boardID}}",
+								"members"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a member",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'activityBlocked' in body\").to.include(\"activityBlocked\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Member is active\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.activityBlocked).to.eql(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{members}}{{username}}",
+							"host": [
+								"{{host}}{{members}}{{username}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Boards that Member belongs to",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No boards 'name' in body\").to.include(\"name\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{members}}{{username}}/boards?filter=all",
+							"host": [
+								"{{host}}{{members}}{{username}}"
+							],
+							"path": [
+								"boards"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "all"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Member",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text(), \"No 'bio' in body\").to.include(\"bio\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test bio is not null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0].bio, \"Bio has null value\").to.not.eql(null);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{members}}{{username}}?key={{apiKey}}&token={{apiToken}}&bio=This is my bio",
+							"host": [
+								"{{host}}{{members}}{{username}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								},
+								{
+									"key": "bio",
+									"value": "This is my bio"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Board is equal to null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData._value).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"boardID\", \"\");\r",
+									"\r",
+									"pm.environment.set(\"username\", \"\");\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/{{boards}}{{boardID}}?key={{apiKey}}&token={{apiToken}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{boards}}{{boardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{apiKey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{apiToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
