@@ -1,6 +1,6 @@
 package com.epam.tc.hw10;
 
-import com.epam.tc.hw10.Assertions.BoardAssertions;
+import com.epam.tc.hw10.assertions.BoardAssertions;
 import com.epam.tc.hw10.entities.Board;
 import com.epam.tc.hw10.service.BoardService;
 import io.restassured.response.Response;

@@ -1,6 +1,6 @@
 package com.epam.tc.hw10;
 
-import com.epam.tc.hw10.Assertions.ListAssertions;
+import com.epam.tc.hw10.assertions.ListAssertions;
 import com.epam.tc.hw10.entities.List;
 import com.epam.tc.hw10.service.ListService;
 import java.util.HashMap;

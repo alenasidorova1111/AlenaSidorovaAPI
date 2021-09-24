@@ -1,4 +1,4 @@
-package com.epam.tc.hw10.Assertions;
+package com.epam.tc.hw10.assertions;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
